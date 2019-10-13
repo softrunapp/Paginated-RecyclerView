@@ -1,0 +1,2 @@
+include ':app', ':paginatedrecyclerview'
+rootProject.name='Paginated RecyclerView AppLication'
