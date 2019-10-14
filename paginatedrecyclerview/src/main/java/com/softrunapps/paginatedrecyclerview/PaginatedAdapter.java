@@ -1,7 +1,6 @@
 package com.softrunapps.paginatedrecyclerview;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
