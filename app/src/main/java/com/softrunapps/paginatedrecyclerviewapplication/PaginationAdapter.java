@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.softrunapps.paginatedrecyclerview.PaginatedAdapter;
 
-public class PaginationAdapter extends PaginatedAdapter<String, PaginationAdapter.ViewHolder> {
+public class PaginationAdapter extends PaginatedAdapter<User, PaginationAdapter.ViewHolder> {
 
     @NonNull
     @Override
@@ -21,16 +21,23 @@ public class PaginationAdapter extends PaginatedAdapter<String, PaginationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(getItem(position));
+        holder.render(getItem(position));
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView username;
+        TextView email;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            username = itemView.findViewById(R.id.text_view_username);
+            email = itemView.findViewById(R.id.text_view_email);
+        }
+
+        public void render(User user) {
+            username.setText(user.getUsername());
+            email.setText(user.getUsername());
         }
     }
 }
