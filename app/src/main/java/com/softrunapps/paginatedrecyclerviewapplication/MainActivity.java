@@ -1,11 +1,11 @@
 package com.softrunapps.paginatedrecyclerviewapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.softrunapps.paginatedrecyclerview.PaginatedRecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.softrunapps.paginatedrecyclerview.PaginatedAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,25 +14,21 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     List<String> data;
-    PaginationAdapter paginatedAdapter;
-    int conunt = 15;
+    PaginationAdapter adapter;
+    int conunt = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initData();
 
-        paginatedAdapter = new PaginationAdapter();
-        paginatedAdapter.setFirstPage(2);
-        paginatedAdapter.setItemCount(15);
-        PaginatedRecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(paginatedAdapter);
-        recyclerView.setOnPaginationListener(new PaginatedRecyclerView.OnPaginationListener() {
+        adapter = new PaginationAdapter();
+        adapter.setDefaultRecyclerView(this,R.id.recyclerView);
+        adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
             @Override
-            public void onNextPage(int loadingPage) {
-                paginatedAdapter.submitItems(getNewItems(loadingPage));
+            public void onNextPage(int page) {
+                adapter.submitItems(getNewItems(page));
             }
 
             @Override
@@ -40,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "finish", Toast.LENGTH_SHORT).show();
             }
         });
-        paginatedAdapter.submitItems(getNewItems(paginatedAdapter.getFirstPage()));
 
 
+        adapter.submitItems(getNewItems(adapter.getStartPage()));
     }
 
     private void initData() {
