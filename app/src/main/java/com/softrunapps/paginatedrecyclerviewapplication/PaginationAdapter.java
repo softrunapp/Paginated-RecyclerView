@@ -37,7 +37,7 @@ public class PaginationAdapter extends PaginatedAdapter<User, PaginationAdapter.
 
         public void render(User user) {
             username.setText(user.getUsername());
-            email.setText(user.getUsername());
+            email.setText(user.getEmail());
         }
     }
 }

@@ -85,7 +85,7 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
         mRecyclerView.setAdapter(this);
     }
 
-    public void setItemCount(int pageSize) {
+    public void setPageSize(int pageSize) {
         this.mPageSize = pageSize;
     }
 

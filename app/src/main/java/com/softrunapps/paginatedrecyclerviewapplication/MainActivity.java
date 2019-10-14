@@ -1,6 +1,7 @@
 package com.softrunapps.paginatedrecyclerviewapplication;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    List<String> data;
+    List<User> data;
     PaginationAdapter adapter;
     int conunt = 10;
 
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
         adapter = new PaginationAdapter();
         adapter.setDefaultRecyclerView(this,R.id.recyclerView);
         adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
+            @Override
+            public void onCurrentPage(int page) {
+                Toast.makeText(MainActivity.this, "Page " + page + " loaded!", Toast.LENGTH_SHORT).show();
+            }
+
             @Override
             public void onNextPage(int page) {
                 adapter.submitItems(getNewItems(page));
@@ -43,20 +49,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         data = new ArrayList<>();
-        for (int i = 0; i < 35; i++)
-            data.add(i + " name");
+        for (int i = 0; i < 55; i++)
+            data.add(new User(i,"username " + i, "user"+i+"@mail.com"));
     }
 
-    private List<String> getNewItems(int page) {
-        Toast.makeText(this, "Loading page: " + page, Toast.LENGTH_SHORT).show();
-        List<String> news = new ArrayList<>();
+    private List<User> getNewItems(int page) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        },2000);
+        List<User> users = new ArrayList<>();
         int start = page * conunt - conunt;
         int end = page * conunt;
         for (int i = start; i < end; i++) {
             if (i < data.size()) {
-                news.add(data.get(i));
+                users.add(data.get(i));
             }
         }
-        return news;
+        return users;
     }
+
+
 }
