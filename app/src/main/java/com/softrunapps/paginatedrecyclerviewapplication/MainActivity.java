@@ -13,10 +13,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
     List<User> data;
     PaginationAdapter adapter;
-    int conunt = 10;
+    int conunter = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         initData();
 
         adapter = new PaginationAdapter();
-        adapter.setDefaultRecyclerView(this,R.id.recyclerView);
+        adapter.setDefaultRecyclerView(this, R.id.recyclerView);
         adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
             @Override
             public void onCurrentPage(int page) {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNextPage(int page) {
-                adapter.submitItems(getNewItems(page));
+                getNewItems(page);
             }
 
             @Override
@@ -44,32 +43,35 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        adapter.submitItems(getNewItems(adapter.getStartPage()));
+        getNewItems(adapter.getStartPage());
+    }
+
+
+    public void onGetDate(List<User> users) {
+        adapter.submitItems(users);
+    }
+
+    private void getNewItems(final int page) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                List<User> users = new ArrayList<>();
+                int start = page * conunter - conunter;
+                int end = page * conunter;
+                for (int i = start; i < end; i++) {
+                    if (i < data.size()) {
+                        users.add(data.get(i));
+                    }
+                }
+                onGetDate(users);
+            }
+        }, 3000);
     }
 
     private void initData() {
         data = new ArrayList<>();
         for (int i = 0; i < 55; i++)
-            data.add(new User(i,"username " + i, "user"+i+"@mail.com"));
+            data.add(new User(i, "username " + i, "user" + i + "@mail.com"));
     }
-
-    private List<User> getNewItems(int page) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        },2000);
-        List<User> users = new ArrayList<>();
-        int start = page * conunt - conunt;
-        int end = page * conunt;
-        for (int i = start; i < end; i++) {
-            if (i < data.size()) {
-                users.add(data.get(i));
-            }
-        }
-        return users;
-    }
-
 
 }
