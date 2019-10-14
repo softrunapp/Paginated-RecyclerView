@@ -1,6 +1,7 @@
 package com.softrunapps.paginatedrecyclerview;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+    Context context;
     private List<ITEM> mDataSet = new ArrayList<>();
     private OnPaginationListener mListener;
     private int mStartPage = 1;
@@ -34,8 +36,8 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
         mDataSet.addAll(collection);
         notifyDataSetChanged();
         if (mListener != null) {
+            mListener.onCurrentPage(mCurrentPage);
             if (collection.size() == mPageSize) {
-                mListener.onNextPage(++mCurrentPage);
                 loadingNewItems = false;
             } else {
                 mListener.onFinish();
@@ -97,7 +99,7 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(mRecyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
                 int totalItemCount = layoutManager.getItemCount();
                 int lastVisible = layoutManager.findLastVisibleItemPosition();
                 boolean endHasBeenReached = lastVisible + 2 >= totalItemCount;
@@ -105,7 +107,7 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
                     if (mListener != null) {
                         if (!loadingNewItems) {
                             loadingNewItems = true;
-                            mListener.onNextPage(mCurrentPage);
+                            mListener.onNextPage(++mCurrentPage);
                         }
                     }
                 }
@@ -118,6 +120,8 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
     }
 
     public interface OnPaginationListener {
+        void onCurrentPage(int page);
+
         void onNextPage(int page);
 
         void onFinish();
