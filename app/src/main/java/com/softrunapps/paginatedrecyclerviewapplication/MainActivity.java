@@ -14,7 +14,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     List<User> data;
-    PaginationAdapter adapter;
+    MyAdapter adapter;
     int conunter = 10;
 
     @Override
@@ -23,7 +23,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initData();
 
-        adapter = new PaginationAdapter();
+        adapter = new MyAdapter();
+        adapter.getStartPage();
+        adapter.getCurrentPage();
+        adapter.getItemCount();
+        adapter.getRecyclerView();
+
         adapter.setDefaultRecyclerView(this, R.id.recyclerView);
         adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
             @Override

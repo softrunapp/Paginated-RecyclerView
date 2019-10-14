@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.softrunapps.paginatedrecyclerview.PaginatedAdapter;
 
-public class PaginationAdapter extends PaginatedAdapter<User, PaginationAdapter.ViewHolder> {
+public class MyAdapter extends PaginatedAdapter<User, MyAdapter.ViewHolder> {
 
     @NonNull
     @Override
