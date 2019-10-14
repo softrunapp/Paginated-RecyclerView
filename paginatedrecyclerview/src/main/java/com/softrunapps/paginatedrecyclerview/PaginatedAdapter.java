@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
-    Context context;
     private List<ITEM> mDataSet = new ArrayList<>();
     private OnPaginationListener mListener;
     private int mStartPage = 1;
