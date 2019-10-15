@@ -36,7 +36,7 @@ Using Paginated RecyclerView is really simple.
       ...
       @Override
       public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-          getItem(position); //get item whit position
+          getItem(position); //get item with position
       }
       ...
 ```
