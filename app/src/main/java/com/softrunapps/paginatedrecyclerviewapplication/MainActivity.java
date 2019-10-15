@@ -24,11 +24,6 @@ public class MainActivity extends AppCompatActivity {
         initData();
 
         adapter = new MyAdapter();
-        adapter.getStartPage();
-        adapter.getCurrentPage();
-        adapter.getItemCount();
-        adapter.getRecyclerView();
-
         adapter.setDefaultRecyclerView(this, R.id.recyclerView);
         adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
             @Override
