@@ -43,6 +43,17 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
         }
     }
 
+    public void submitItem(ITEM item) {
+        mDataSet.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void submitItem(ITEM item, int position) {
+        mDataSet.add(position, item);
+        notifyDataSetChanged();
+    }
+
+
     protected ITEM getItem(int position) {
         return mDataSet.get(position);
     }
