@@ -53,6 +53,11 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        mDataSet.clear();
+        notifyDataSetChanged();
+    }
+
 
     protected ITEM getItem(int position) {
         return mDataSet.get(position);
