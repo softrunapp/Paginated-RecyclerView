@@ -6,6 +6,9 @@ Android Paginated Recycler view Library.
 
 This is simple android library to pagination data in RecyclerView list.
 
+## Preview
+<img src="screen.gif" width="480" />
+
 ## Gradle
 
 Add it in your root build.gradle at the end of repositories:
